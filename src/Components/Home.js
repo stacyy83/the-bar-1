@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import SocketContext from "./SocketContext";
 import { Link } from "react-router-dom";
+import { getData } from "./PlayerData";
 
 const Home = () => {
   const socket = useContext(SocketContext);
@@ -12,6 +13,8 @@ const Home = () => {
   //Emit the username to socket
   const handleSubmit = (event) => {
     // socket.emit("join", userName);
+    getData().me.name = userName;
+    getData().me.playerId = socket.id;
     socket.emit("join", { id: socket.id, name: userName });
   };
 

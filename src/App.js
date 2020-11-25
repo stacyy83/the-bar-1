@@ -16,7 +16,8 @@ function App() {
     });
 
     socket.on("join", (data) => {
-      getData().players = data;
+      console.log(data);
+      getData().players.push(data);
     });
   }, []);
   return (

@@ -9,7 +9,6 @@ const P5Sketch = (props) => {
   let x = 50;
   let y = 50;
 
-  let myName = "";
 
   const setup = (p5, canvasParentRef) => {
     // use parent to render the canvas in this ref
@@ -22,16 +21,16 @@ const P5Sketch = (props) => {
     p5.ellipse(x, y, 70, 70);
     p5.fill(255);
     p5.textSize(32);
-    p5.text(myName, 100, 100);
+    // p5.text(myName, 100, 100);
     // console.log(getData().players);
-    // const players = getData().players;
-    // const names = players.map((player) => {
-    //   return player.name;
-    // });
+    const players = getData().players;
+    const names = players.map((player) => {
+      return player.name;
+    });
     // console.log(names);
-    // names.forEach((name) => {
-    //   p5.text(name, 100, 200);
-    // });
+    names.forEach((name) => {
+      p5.text(name, 100, 200);
+    });
 
     // NOTE: Do not use setState in the draw function or in functions that are executed
     // in the draw function...
@@ -41,6 +40,8 @@ const P5Sketch = (props) => {
 
   return <Sketch setup={setup} draw={draw} />;
 };
+
+
 
 // class Player
 
