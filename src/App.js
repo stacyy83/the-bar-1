@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import socketIOClient from "socket.io-client";
+import SocketContext from "../src/Components/SocketContext";
+import P5Sketch from "../src/Components/P5Sketch";
+import Home from "../src/Components/Home";
+import { getData } from "../src/Components/PlayerData";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+const ENDPOINT = "http://127.0.0.1:4001";
+const socket = socketIOClient(ENDPOINT);
 
 function App() {
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log(`socket ${socket.id} connected`);
+    });
+
+    socket.on("join", (data) => {
+      getData().players = data;
+    });
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <SocketContext.Provider value={socket}>
+        <div className='App'>
+          <p>Hello World</p>
+          <Switch>
+            <Route exact path='/'>
+              <Home />
+            </Route>
+            <Route exact path='/newSketch'>
+              <P5Sketch />
+            </Route>
+          </Switch>
+        </div>
+      </SocketContext.Provider>
+    </Router>
   );
 }
 
