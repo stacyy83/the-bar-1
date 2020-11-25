@@ -5,8 +5,6 @@ import { getData } from "./PlayerData";
 
 const P5Sketch = (props) => {
   const socket = useContext(SocketContext);
-  // const player = PlayerData();
-  // console.log(player);
 
   let x = 50;
   let y = 50;
@@ -25,7 +23,15 @@ const P5Sketch = (props) => {
     p5.fill(255);
     p5.textSize(32);
     p5.text(myName, 100, 100);
-    console.log(getData().players);
+    // console.log(getData().players);
+    // const players = getData().players;
+    // const names = players.map((player) => {
+    //   return player.name;
+    // });
+    // console.log(names);
+    // names.forEach((name) => {
+    //   p5.text(name, 100, 200);
+    // });
 
     // NOTE: Do not use setState in the draw function or in functions that are executed
     // in the draw function...
