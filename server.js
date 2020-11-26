@@ -35,8 +35,9 @@ io.on("connection", (socket) => {
     players.push(player);
     console.log("We have a new client: " + player.id);
 
-    // console.log(players);
-    socket.broadcast.emit("join", players);
+    console.log(players);
+    socket.broadcast.emit("join", player);
+    // socket.emit("join", players);
   });
 
   socket.on("disconnect", () => {
