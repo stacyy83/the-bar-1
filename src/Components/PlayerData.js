@@ -4,22 +4,16 @@
 const data = {
   me: {
     name: "",
-    playerId: "",
+    id: "",
+    avatar: null,
+    room: null,
+    x: null,
+    y: null,
+    destinationX: null,
+    destinationY: null,
   },
   players: [],
 };
-
-// const updateData = () =>{
-//   const socket = useContext(SocketContext);
-//   useEffect(()=>{
-//     socket.on('join', (data)=>{
-
-//     });
-//   })
-// }
-
-
-
 
 const getData = () => {
   return data;

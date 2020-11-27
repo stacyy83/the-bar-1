@@ -40,8 +40,15 @@ io.on("connection", (socket) => {
     // socket.emit("join", players);
   });
 
-  socket.on("disconnect", () => {
-    console.log("Client disconnected");
+  //client disconnect
+  socket.on("disconnect", function () {
+    //console.log("Client has disconnected " + socket.id);
+    const index = players.findIndex((e) => e.id == socket.id);
+    if (index > -1) {
+      console.log(socket.id + " disconnected.");
+      players.splice(index, 1);
+    }
+    socket.broadcast.emit("quit", socket.id);
   });
 });
 
