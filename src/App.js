@@ -33,7 +33,6 @@ function App() {
             )
           );
         });
-      console.log(getData().players);
     });
 
     socket.on("join", (data) => {
@@ -54,9 +53,8 @@ function App() {
       // already get the data but won't display
       const index = getData().players.findIndex((e) => e.id === data.id);
       if (index > -1) {
-        getData().players.destinationX = data.destinationX;
-        getData().players.destinationY = data.destinationY;
-        console.log(getData().players.destinationX);
+        getData().players[index].destinationX = data.destinationX;
+        getData().players[index].destinationY = data.destinationY;
       }
     });
 

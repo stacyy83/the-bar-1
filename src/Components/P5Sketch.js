@@ -3,7 +3,6 @@ import Sketch from "react-p5";
 import SocketContext from "./SocketContext";
 import { getData } from "./PlayerData";
 import { Player } from "./Player";
-import { move } from "./move";
 
 const P5Sketch = (props) => {
   const socket = useContext(SocketContext);
@@ -15,7 +14,7 @@ const P5Sketch = (props) => {
     // (without that p5 will render the canvas outside of your component)
     p5.createCanvas(500, 500).parent(canvasParentRef);
     //initiate myself
-    const { name, id, x, y, destinationX, destinationY } = getData().me;
+    const { name, x, y, destinationX, destinationY } = getData().me;
     me = new Player(name, x, y, name, destinationX, destinationY);
     console.log(me);
   };
@@ -43,6 +42,7 @@ const P5Sketch = (props) => {
     p5.background(0);
     p5.fill(255);
     // move(me, p5);
+    console.log(players);
     me.move(p5);
     me.display(p5);
     players.forEach((player) => {
