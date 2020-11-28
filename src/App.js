@@ -50,11 +50,19 @@ function App() {
     });
 
     socket.on("playerMoved", (data) => {
-      // already get the data but won't display
+      //find the player and update the destination value
       const index = getData().players.findIndex((e) => e.id === data.id);
       if (index > -1) {
         getData().players[index].destinationX = data.destinationX;
         getData().players[index].destinationY = data.destinationY;
+      }
+    });
+
+    socket.on("onMessage", (data) => {
+      //receive message from players
+      const index = getData().players.findIndex((e) => e.id === data.id);
+      if (index > -1) {
+        getData().players[index].message = data.message;
       }
     });
 

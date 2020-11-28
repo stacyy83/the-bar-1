@@ -60,6 +60,18 @@ io.on("connection", (socket) => {
     });
   });
 
+  socket.on("sendMessage", (data) => {
+    const { message } = data;
+    const index = players.findIndex((e) => e.id === socket.id);
+    if (index > -1) {
+      players[index].message = message;
+    }
+    socket.broadcast.emit("onMessage", {
+      id: socket.id,
+      message: message,
+    });
+  });
+
   //client disconnect
   socket.on("disconnect", function () {
     //console.log("Client has disconnected " + socket.id);

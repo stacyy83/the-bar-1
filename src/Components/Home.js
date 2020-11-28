@@ -7,7 +7,7 @@ const Home = () => {
   const socket = useContext(SocketContext);
   const [userName, setUserName] = useState("");
 
-  const handNameChange = (event) => {
+  const handleNameChange = (event) => {
     setUserName(event.target.value);
   };
   //Emit the username to socket
@@ -38,7 +38,7 @@ const Home = () => {
         type='text'
         placeholder='Your Name'
         value={userName}
-        onChange={handNameChange}
+        onChange={handleNameChange}
         className='text-input-field'
       />
       <Link to='/newSketch'>

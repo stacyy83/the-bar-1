@@ -1,6 +1,13 @@
-# Getting Started with Create React App
+# The Bar
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## To-do
+
+- [ ] text seperate into bubble object and dispose it after 5 seconds
+- [ ] avatar add-on
+- [ ] room change
+- [ ] p5.play
 
 ## Available Scripts
 

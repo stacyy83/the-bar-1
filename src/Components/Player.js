@@ -1,3 +1,5 @@
+import { getData } from "./PlayerData";
+
 class Player {
   //define player properties
   constructor(id, x, y, name, destinationX, destinationY) {
@@ -8,6 +10,8 @@ class Player {
     this.destinationX = destinationX;
     this.destinationY = destinationY;
     this.speed = 50;
+    this.message = [];
+    this.onElement = false;
     // this.color = p5.color(p5.random(255), p5.random(255), p5.random(255));
   }
 
@@ -46,7 +50,7 @@ class Player {
       deltaTime The system variable deltaTime contains the time difference between 
       the beginning of the previous frame and the beginning of the current frame in milliseconds.
       the speed is not based on the client framerate which can be variable but on the actual time that passes
-      between frames.
+      between frames. 
       */
 
         position.add(increment);
@@ -58,9 +62,43 @@ class Player {
   }
 
   display(p5) {
+    p5.rectMode(p5.CENTER);
     p5.rect(this.x, this.y, 30, 30);
     p5.fill(255);
-    p5.text(this.name, this.x - 20, this.y - 20);
+  }
+
+  displayName(p5) {
+    let mouseVec = p5.createVector(p5.mouseX, p5.mouseY);
+    let pos = p5.createVector(this.x, this.y);
+    let distance = mouseVec.dist(pos);
+    // console.log(distance);
+    if (distance < 30) {
+      this.onElement = true;
+    } else {
+      this.onElement = false;
+    }
+    // console.log(this.onElement);
+    if (this.onElement) {
+      // console.log("over it");
+      p5.push();
+      p5.fill(255);
+      p5.rectMode(p5.CORNER);
+      p5.rect(0, p5.height - 50, p5.width, 50);
+      p5.fill(0);
+      p5.text(this.name, 30, p5.height - 30);
+      p5.textSize(32);
+      p5.pop();
+    }
+  }
+
+  displayMessage(p5) {
+    this.message = getData().me.message;
+    // console.log(this.message);
+    p5.text(this.message, this.x - 20, this.y - 50);
+    p5.textSize(32);
+  }
+  displayOtherMessage(p5) {
+    p5.text(this.message, this.x - 20, this.y - 50);
     p5.textSize(32);
   }
 }

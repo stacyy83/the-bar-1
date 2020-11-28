@@ -11,6 +11,7 @@ const data = {
     y: null,
     destinationX: null,
     destinationY: null,
+    message: "",
   },
   players: [],
 };
