@@ -21,6 +21,9 @@ const P5Sketch = (props) => {
   };
 
   const draw = (p5) => {
+    p5.background(0);
+    p5.fill(255);
+    displayMe(p5);
     displayPlayers(p5);
 
     // NOTE: Do not use setState in the draw function or in functions that are executed
@@ -48,14 +51,14 @@ const P5Sketch = (props) => {
     return false;
   };
 
-  const displayPlayers = (p5) => {
-    p5.background(0);
-    p5.fill(255);
-    // move(me, p5);
+  const displayMe = (p5) => {
     me.move(p5);
     me.display(p5);
     me.displayName(p5);
     me.displayMessage(p5);
+  };
+
+  const displayPlayers = (p5) => {
     players.forEach((player) => {
       player.move(p5);
       player.display(p5);
