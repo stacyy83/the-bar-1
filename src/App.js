@@ -22,33 +22,43 @@ function App() {
       data.players
         .filter((e) => e.id !== myId)
         .forEach((player) => {
-          getData().players.push(new Player(player.id, 200, 200, player.name));
+          getData().players.push(
+            new Player(
+              player.id,
+              player.x,
+              player.y,
+              player.name,
+              player.destinationX,
+              player.destinationY
+            )
+          );
         });
       console.log(getData().players);
     });
 
     socket.on("join", (data) => {
       console.log(data);
-      getData().players.push(new Player(data.id, 200, 200, data.name));
+      getData().players.push(
+        new Player(
+          data.id,
+          data.x,
+          data.x,
+          data.name,
+          data.destinationX,
+          data.destinationY
+        )
+      );
     });
 
-    //when somebody clicks to move, update the destination (not the position)
-    // socket.on("playerMoved",
-    // function (p) {
-    //     try {
-    //         //console.log(p.id + " moves to: " + p.destinationX + " " + p.destinationY);
-
-    //         //make sure the player exists
-    //         if (players.hasOwnProperty(p.id)) {
-
-    //             players[p.id].destinationX = p.destinationX;
-    //             players[p.id].destinationY = p.destinationY;
-    //         }
-    //     } catch (e) {
-    //         console.log("Error on playerMoved");
-    //         console.error(e);
-    //     }
-    // });
+    socket.on("playerMoved", (data) => {
+      // already get the data but won't display
+      const index = getData().players.findIndex((e) => e.id === data.id);
+      if (index > -1) {
+        getData().players.destinationX = data.destinationX;
+        getData().players.destinationY = data.destinationY;
+        console.log(getData().players.destinationX);
+      }
+    });
 
     socket.on("quit", (id) => {
       const index = getData().players.findIndex((e) => e.id === id);

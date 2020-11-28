@@ -27,10 +27,15 @@ io.on("connection", (socket) => {
   console.log("New client connected");
 
   socket.on("join", (data) => {
-    const { id, name } = data;
+    const { id, name, x, y, room, destinationX, destinationY } = data;
     const player = {
       id: id,
       name: name,
+      x: x,
+      y: y,
+      room: room,
+      destinationX: destinationX,
+      destinationY: destinationY,
     };
     players.push(player);
     console.log("We have a new client: " + player.id);
@@ -38,6 +43,21 @@ io.on("connection", (socket) => {
     console.log(players);
     socket.broadcast.emit("join", player);
     // socket.emit("join", players);
+  });
+
+  socket.on("move", (data) => {
+    const { destinationX, destinationY } = data;
+    const index = players.findIndex((e) => e.id === socket.id);
+    if (index > -1) {
+      players[index].destinationX = destinationX;
+      players[index].destinationY = destinationY;
+      console.log(socket.id + "moved");
+    }
+    socket.broadcast.emit("playerMoved", {
+      id: socket.id,
+      destinationX: destinationX,
+      destinationY: destinationY,
+    });
   });
 
   //client disconnect

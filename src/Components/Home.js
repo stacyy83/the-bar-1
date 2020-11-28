@@ -12,9 +12,23 @@ const Home = () => {
   };
   //Emit the username to socket
   const handleSubmit = (event) => {
-    getData().me.name = userName;
-    getData().me.id = socket.id;
-    socket.emit("join", { id: socket.id, name: userName });
+    let me = getData().me;
+    me.name = userName;
+    me.id = socket.id;
+    me.x = 200;
+    me.y = 200;
+    me.destinationX = me.x;
+    me.destinationY = me.y;
+    me.room = "frontDoor";
+    socket.emit("join", {
+      id: me.id,
+      name: me.name,
+      x: me.x,
+      y: me.y,
+      destinationX: me.destinationX,
+      destinationY: me.destinationY,
+      room: me.room,
+    });
   };
 
   return (
