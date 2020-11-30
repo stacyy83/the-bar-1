@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import socketIOClient from "socket.io-client";
 import SocketContext from "../src/Components/SocketContext";
-import P5Sketch from "../src/Components/P5Sketch";
+import P5Wrap from "../src/Components/P5Wrap";
 import Home from "../src/Components/Home";
 import { getData } from "../src/Components/PlayerData";
 import { Player } from "../src/Components/Player";
@@ -84,7 +84,7 @@ function App() {
               <Home />
             </Route>
             <Route exact path='/newSketch'>
-              <P5Sketch />
+              <P5Wrap />
             </Route>
           </Switch>
         </div>
