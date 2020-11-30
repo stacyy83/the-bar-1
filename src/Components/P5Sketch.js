@@ -10,10 +10,29 @@ const P5Sketch = (props) => {
   const players = getData().players;
   let me;
 
+  // let ASSETS_FOLDER = "../../public/assets/";
+
+  //native canvas resolution
+  var NATIVE_WIDTH = 128;
+  var NATIVE_HEIGHT = 100;
+
+  let ASSET_SCALE = 2;
+  var WIDTH = NATIVE_WIDTH * ASSET_SCALE;
+  var HEIGHT = NATIVE_HEIGHT * ASSET_SCALE;
+
+  let entranceBg;
+
+  const preload = (p5) => {
+    // entranceBg = p5.loadImage(ASSETS_FOLDER + getData().entrance.bg);
+    // entranceBg = p5.loadImage("../../public/assets/entrance.png");
+  }
+
   const setup = (p5, canvasParentRef) => {
     // use parent to render the canvas in this ref
     // (without that p5 will render the canvas outside of your component)
+    
     p5.createCanvas(600, 600).parent(canvasParentRef);
+    entranceBg = p5.loadImage("./assets/entrance.png");
     //initiate myself
     const { name, x, y, destinationX, destinationY, message } = getData().me;
     me = new Player(name, x, y, name, destinationX, destinationY, message);
@@ -21,8 +40,17 @@ const P5Sketch = (props) => {
   };
 
   const draw = (p5) => {
-    p5.background(0);
-    p5.fill(255);
+
+    p5.imageMode(p5.CORNER);
+    p5.push();
+    p5.scale(ASSET_SCALE);
+    p5.translate(-NATIVE_WIDTH / 2, -NATIVE_HEIGHT / 2);
+    p5.image(entranceBg, p5.floor(WIDTH / 2), p5.floor(HEIGHT / 2))
+    // animation(bg, floor(WIDTH / 2), floor(HEIGHT / 2));
+    p5.pop();
+
+    // p5.background(0);
+    // p5.fill(255);
     displayMe(p5);
     displayPlayers(p5);
 
@@ -69,7 +97,7 @@ const P5Sketch = (props) => {
 
   return (
     <div className='sketch-container'>
-      <Sketch setup={setup} draw={draw} mousePressed={mousePressed} />
+      <Sketch preload={preload} setup={setup} draw={draw} mousePressed={mousePressed} />
       <Message />
     </div>
   );

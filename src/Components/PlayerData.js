@@ -14,6 +14,9 @@ const data = {
     message: "",
   },
   players: [],
+  entrance:{
+    bg: "entrance.png"
+  }
 };
 
 const getData = () => {
